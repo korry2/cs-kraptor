@@ -1,3 +1,21 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    buildscript {
+        repositories {
+            google()
+            mavenCentral()
+            maven { url = uri("https://storage.googleapis.com/r8-releases/raw") }
+        }
+        dependencies {
+            classpath("com.android.tools:r8:9.1.29")
+        }
+    }
+}
+
 rootProject.name = "CloudstreamPlugins"
 
 // This file sets what projects are included. All new projects should get automatically included unless specified in "disabled" variable.
