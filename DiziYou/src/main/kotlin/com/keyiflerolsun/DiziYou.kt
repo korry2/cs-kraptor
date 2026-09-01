@@ -155,7 +155,7 @@ class DiziYou : MainAPI() {
 
         for (sub in subTitles) {
             subtitleCallback.invoke(
-                SubtitleFile(
+                newSubtitleFile(
                     lang = sub.name,
                     url  = fixUrl(sub.url)
                 )
