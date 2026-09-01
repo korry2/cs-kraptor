@@ -116,7 +116,7 @@ class DiziAsya : MainAPI() {
         val plot = res["plot"] as? String
         val year = (res["publish_year"] as? String)?.toIntOrNull()
         val poster = res["cover_image"] as? String
-        val rating = (res["rate"] as? String)?.toIntOrNull()
+        val score = Score.from10(res["rate"]?.toString())
         
         Log.d("DiziAsya", "Content type: $type, Title: $title, Slug: $slug")
         
@@ -178,7 +178,7 @@ class DiziAsya : MainAPI() {
                     this.posterUrl = posterUrl
                     this.plot = plot
                     this.year = year
-                    this.rating = rating
+                    this.score = score
                     this.tags = tags
                     this.recommendations = recommendations
                 }
@@ -269,7 +269,7 @@ class DiziAsya : MainAPI() {
             this.posterUrl = posterUrl
             this.plot = plot
             this.year = year
-            this.rating = rating
+            this.score = score
             this.tags = tags
             this.recommendations = recommendations
         }
