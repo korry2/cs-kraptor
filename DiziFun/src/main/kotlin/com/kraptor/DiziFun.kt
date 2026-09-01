@@ -201,7 +201,7 @@ class DiziFun : MainAPI() {
         val trackSubtitlePattern = Regex("""<track\s+[^>]*src=['\"]([^'\"]+\.vtt)['\"][^>]*>""")
 
         // Ortak subtitle işleme fonksiyonu
-        fun processSubtitles(content: String) {
+        suspend fun processSubtitles(content: String) {
             val subtitleUrls = mutableSetOf<Pair<String, String>>()
 
             val subtitlePatterns = listOf(subtitlePattern, altSubtitlePattern, trackSubtitlePattern)
@@ -229,9 +229,9 @@ class DiziFun : MainAPI() {
             }
 
             // Subtitle callback'lerini çağır
-            subtitleUrls.forEach { (url, lang) ->
+            for ((url, lang) in subtitleUrls) {
                 try {
-                    subtitleCallback.invoke(SubtitleFile(lang, url))
+                    subtitleCallback.invoke(newSubtitleFile(lang, url))
                 } catch (e: Exception) {
                     Log.e("Dfun", "Subtitle error: ${e.message}")
                 }
