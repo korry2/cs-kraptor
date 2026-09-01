@@ -255,9 +255,9 @@ class DiziFun : MainAPI() {
 
                     try {
                         val response = app.get(fullUrl, referer = referer)
-                        val body = response.body?.string()
+                        val body = response.body.string()
 
-                        if (body == null || "404" in body || "Not Found" in body) {
+                        if ("404" in body || "Not Found" in body) {
                             Log.d("Dfun", "Link geçersiz: $fullUrl")
                             return@forEach
                         }
