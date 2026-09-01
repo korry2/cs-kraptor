@@ -280,7 +280,7 @@ class Animeler : MainAPI() {
                         return false
                     }
 
-                    val responseJson = JSONObject(initResp.body!!.string())
+                    val responseJson = JSONObject(initResp.body.string())
                     val sourceList = responseJson.getJSONObject("sourceList")
 
                     Log.d("Animeler", "Found ${sourceList.length()} sources")
@@ -300,7 +300,7 @@ class Animeler : MainAPI() {
                                     )
 
                                     if (resp2.isSuccessful) {
-                                        val jsonResponse = resp2.body!!.string()
+                                        val jsonResponse = resp2.body.string()
                                         Log.d("Animeler", "Source $key response: $jsonResponse")
 
                                         val videoObject = JSONObject(jsonResponse)
