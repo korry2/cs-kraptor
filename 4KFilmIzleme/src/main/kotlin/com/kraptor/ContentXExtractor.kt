@@ -389,7 +389,7 @@ open class TurkeyPlayer : ExtractorApi() {
                     fixM3u.contains("en", ignoreCase = true) -> "English"
                     else -> "Bilinmeyen"
                 }
-                subtitleCallback.invoke(newSubtitleFile(lang, fixM3u.toString()))
+                subtitleCallback.invoke(newSubtitleFile(lang, fixM3u))
             }
 
             Log.d("kraptor_unutulmaz", "normalized m3u » $fixM3u")
