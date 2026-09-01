@@ -168,7 +168,7 @@ class DiziAsia : MainAPI() {
             var successCount = 0
 
             for (btn in sourceButtons) {
-                val id = btn.attr("data-id")?.takeIf { it.isNotBlank() } ?: continue
+                val id = btn.attr("data-id").takeIf { it.isNotBlank() } ?: continue
 
                 try {
                     val response = app.post(
