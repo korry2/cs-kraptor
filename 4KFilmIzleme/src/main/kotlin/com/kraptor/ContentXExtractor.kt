@@ -7,6 +7,7 @@ import com.lagradost.api.Log
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.lagradost.cloudstream3.ErrorLoadingException
 import com.lagradost.cloudstream3.SubtitleFile
+import com.lagradost.cloudstream3.newSubtitleFile
 import com.lagradost.cloudstream3.app
 import com.lagradost.cloudstream3.base64Decode
 import com.lagradost.cloudstream3.base64DecodeArray
@@ -54,7 +55,7 @@ open class ContentX : ExtractorApi() {
             subUrls.add(subUrl)
 
             subtitleCallback.invoke(
-                SubtitleFile(
+                newSubtitleFile(
                     lang = language,
                     url = fixUrl(subUrl)
                 )
@@ -140,7 +141,7 @@ open class RapidVid : ExtractorApi() {
             }
             if (subUrls.add(subUrl)) {
                 subtitleCallback(
-                    SubtitleFile(
+                    newSubtitleFile(
                         lang = language,
                         url = fixUrl(subUrl.replace("\\", ""))
                     )
@@ -388,7 +389,7 @@ open class TurkeyPlayer : ExtractorApi() {
                     fixM3u.contains("en", ignoreCase = true) -> "English"
                     else -> "Bilinmeyen"
                 }
-                subtitleCallback.invoke(SubtitleFile(lang, fixM3u.toString()))
+                subtitleCallback.invoke(newSubtitleFile(lang, fixM3u.toString()))
             }
 
             Log.d("kraptor_unutulmaz", "normalized m3u » $fixM3u")
@@ -449,7 +450,7 @@ open class VidMoxy : ExtractorApi() {
         val decoded = decodeEE(encoded)
         Log.d("kraptor_unutulmaz", "decoded = $decoded")
         val altyRegex = Regex(pattern = """"file": "([^"]*)"""", options = setOf(RegexOption.IGNORE_CASE))
-        altyRegex.findAll(videoReq).map { match ->
+        for (match in altyRegex.findAll(videoReq)) {
             val url = fixUrl(match.groupValues[1])
             Log.d("kraptor_unutulmaz", "url = $url")
             val subLang = url
@@ -462,11 +463,11 @@ open class VidMoxy : ExtractorApi() {
             } else {
                 subLang
             }
-            subtitleCallback.invoke(SubtitleFile(
+            subtitleCallback.invoke(newSubtitleFile(
                 lang = language,
                 url  = url
             ))
-        }.toList()
+        }
 
 
         callback.invoke(
